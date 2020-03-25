@@ -11,6 +11,7 @@ import './checkout-item.styles.scss';
 
 const CheckoutItem = ({ cartItem, clearItem, addItem, removeItem }) => {
     const { name, imageUrl, price, quantity } = cartItem;
+    console.log('cartItem', imageUrl);
     return (
         <div className="checkout-item">
             <div className="image-container">
@@ -37,8 +38,8 @@ const CheckoutItem = ({ cartItem, clearItem, addItem, removeItem }) => {
 
 const mapDispatchToProps = dispatch => ({
     clearItem: item => dispatch(clearItemFromCart(item)),
-    addItem: item => dispatch(addItem(item)),
-    removeItem: item => dispatch(removeItem(item))
+    removeItem: item => dispatch(removeItem(item)),
+    addItem: item => dispatch(addItem(item))
 });
 
 export default connect(null, mapDispatchToProps)(CheckoutItem);
