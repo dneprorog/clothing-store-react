@@ -2,5 +2,7 @@
     "editor.fontSize": 18,
     "markdown.preview.fontSize": 20,
     "terminal.integrated.fontSize": 20,
-    "git.autoRepositoryDetection": false
+    "git.enabled": false,
+    "git.autofetch": false,
+    "git.path": null
 }
