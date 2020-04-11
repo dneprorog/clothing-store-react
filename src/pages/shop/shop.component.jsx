@@ -9,7 +9,7 @@ import WithSpinner from '../../components/with-spinner/with-spinner.component';
 
 import {
     firestore,
-    convertCollectionsSnapshotToMap
+    convertCollectionsSnapshotToMap,
 } from '../../firebase/firebase.utils';
 
 import { updateCollections } from '../../redux/shop/shop.actions';
@@ -19,7 +19,7 @@ const CollectionPageWithSpinner = WithSpinner(CollectionPage);
 
 class ShopPage extends React.Component {
     state = {
-        loading: true
+        loading: true,
     };
     unsubscribeFromSnapShot = null;
 
@@ -27,7 +27,7 @@ class ShopPage extends React.Component {
         const { updateCollections } = this.props;
         const collectionRef = firestore.collection('collections');
 
-        collectionRef.onSnapshot(async snapshot => {
+        collectionRef.get().then((snapshot) => {
             const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
             updateCollections(collectionsMap);
             this.setState({ loading: false });
@@ -42,7 +42,7 @@ class ShopPage extends React.Component {
                 <Route
                     exact
                     path={`${match.path}`}
-                    render={props => (
+                    render={(props) => (
                         <CollectionsOverviewWithSpinner
                             isLoading={loading}
                             {...props}
@@ -51,7 +51,7 @@ class ShopPage extends React.Component {
                 />
                 <Route
                     path={`${match.path}/:collectionId`}
-                    render={props => (
+                    render={(props) => (
                         <CollectionPageWithSpinner
                             isLoading={loading}
                             {...props}
@@ -63,9 +63,9 @@ class ShopPage extends React.Component {
     }
 }
 
-const mapDispatchToProps = dispatch => ({
-    updateCollections: collectionsMap =>
-        dispatch(updateCollections(collectionsMap))
+const mapDispatchToProps = (dispatch) => ({
+    updateCollections: (collectionsMap) =>
+        dispatch(updateCollections(collectionsMap)),
 });
 
 export default connect(null, mapDispatchToProps)(ShopPage);
